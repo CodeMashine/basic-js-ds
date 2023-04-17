@@ -9,7 +9,7 @@ const { NotImplementedError } = require("../extensions/index.js");
 
 class Node {
   constructor(value) {
-    this.value = value;
+    this.data = value;
     this.left;
     this.right;
   }
@@ -20,7 +20,13 @@ class BinarySearchTree {
     this.base = value;
   }
   root() {
-    return this.base;
+    // if ( this.base ) {
+    //   return this.base ;
+    // }else{
+    //   return null ;
+    // }
+    //   ;
+      return this.base ;
   }
 
   add(data) {
@@ -28,14 +34,16 @@ class BinarySearchTree {
 
     function addNewNode(base, data) {
       if (!base) {
+        // this.head = new Node(data) ;
+        // this.head
         return new Node(data);
       }
 
-      if (base.value === data) {
+      if (base.data === data) {
         return base;
       }
 
-      if (base.value < data) {
+      if (base.data < data) {
         base.right = addNewNode(base.right, data);
       } else {
         base.left = addNewNode(base.left, data);
@@ -70,15 +78,16 @@ class BinarySearchTree {
     return search(this.base , data) ;
 
     function search(base , data){
-      if(base.value === data){
-        return true ;
-      }
-
       if (!base){
         return false ;
       }
+      
+      if(base.data === data){
+        return true ;
+      }
 
-      if(base.value < data){
+
+      if(base.data < data){
         return search(base.right , data) ;
       }else{
         return search(base.left , data) ;
@@ -95,11 +104,11 @@ class BinarySearchTree {
 
 
     function search( base , data) {
-      if(!base) return false ;
+      if(!base) return null ;
 
-      if( base.value === data ) return base ;
+      if( base.data === data ) return base ;
 
-      if(base.value > data) {
+      if(base.data > data) {
         return search(base.left , data) ;
       }else{
         return search(base.right , data) ;
@@ -112,24 +121,23 @@ class BinarySearchTree {
 
     function deleteData( base , data) {
 
-      if(!base) return null ;
+      if(!base) return false ;
 
-      if(base.value > data){
+      if(base.data > data){
         base.left = deleteData(base.left , data) ;
         return base ;
-      }else if (base.value < data){
+      }else if (base.data < data){
         base.right = deleteData(base.right , data) ;
+        return base ;
       }else{
 
         if( !base.left && !base.right ) return null ;
 
         if( !base.left && base.right  ) {
-          // base = base.right ;
           return base.right ;
         }
 
         if( !base.right && base.left ) {
-          // base = base.right ;
           return base.left ;
         }
 
@@ -141,9 +149,9 @@ class BinarySearchTree {
             maxLeft = maxLeft.right ;
           }
 
-          base.value = maxLeft.value ;
+          base.data = maxLeft.data ;
 
-          base.left = deleteData(base.left , base.value) ;
+          base.left = deleteData(base.left , base.data) ;
 
           return base ;
 
@@ -167,7 +175,7 @@ class BinarySearchTree {
       current = current.left ;
     }
 
-    return current.value;
+    return current.data;
   }
 
   max() {
@@ -179,7 +187,7 @@ class BinarySearchTree {
       current = current.right ;
     }
 
-    return current.value;
+    return current.data;
 
   }
 }
@@ -190,13 +198,32 @@ module.exports = {
 
 
 
-// let tree = new BinarySearchTree() ;
+let tree = new BinarySearchTree() ;
 
-// tree.add(15) ;
-// tree.add(4) ;
-// tree.add(16) ;
-// tree.add(21) ;
+tree.add(9);
+tree.add(14);
+tree.add(2);
+tree.add(6);
+tree.add(128);
+tree.add(8);
+tree.add(31);
+tree.add(54);
+tree.add(1);
+// tree.remove(14);
+// tree.remove(8);
+// tree.remove(9);
+// tree.remove(1);
 
-// console.log(tree.root()) ;
+// console.log(tree.has(14)) ;
+// console.log(tree.has(8)) ;
+// console.log(tree.has(9)) ;
+// console.log(tree.has(2)) ;
+// console.log(tree.has(6)) ;
+// console.log(tree.has(128)) ;
+// console.log(tree.has(31)) ;
+// console.log(tree.has(54)) ;
+// console.log(tree.has(1)) ;
+console.log(tree.root()) ;
+
 // console.log(tree.find(16)) ;
 // console.log(tree.has(16)) ;
